@@ -3,17 +3,41 @@
 <head>
 	<meta charset="UTF-8">
 	<title>gemStore</title>
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body ng-controller="StoreController as store" class="container"> <!-- set an alias --> 
 	<ul class="list-group">
-		<li class="list-group-item" ng-repeat="product in store.products">
+		<li class="list-group-item" ng-repeat="product in store.products | orderBy:'-price'"> <!--order the items by price (descending) -->
 			<h3 ng-hide="product.soldOut"> <!-- hide if expression true --> 
 				{{product.name}}
-					<em class="pull-right">${{product.price}}</em>
+					<em class="pull-right">{{product.price | currency}}</em>
 			</h3>
-			<p>{{product.description}}</p>
 			<button ng-show="product.canPurchase">Add to Cart</button> <!-- only show button when expression is true --> 
+			<section ng-controller="PanelController as panel">
+				<ul class="nav nav-pills">
+					<li ng-class="{ active: panel.isSet(1)}">
+						<a href="" ng-click="panel.selectTab(1)">Description</a>
+					</li>
+					<li ng-class="{ active: panel.isSet(2)}">
+						<a href="" ng-click="panel.selectTab(2)">Specifications</a>
+					</li>
+					<li ng-class="{ active: panel.isSet(3)}">
+						<a href="" ng-click="panel.selectTab(3)">Reviews</a>
+					</li>
+				</ul>
+				<div class="panel" ng-show="panel.isSet(1)">
+					<h4>Description!</h4>
+					<p>{{product.description}}</p>
+				</div>
+				<div class="panel" ng-show="panel.isSet(2)">
+					<h4>Specifications</h4>
+					<ul>
+						<li>{{product.appeal}}</li>
+						<li>{{product.color}}</li>
+					</ul>
+					
+				</div>
+			</section>
 		</li>
 	</ul>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.min.js"></script>
