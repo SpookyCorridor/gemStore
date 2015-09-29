@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="gemStore">
+<head>
+	<meta charset="UTF-8">
+	<title>gemStore</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css">
+</head>
+<body>
+	<div ng-controller="StoreController as store"> <!--set an alias -->
+		<h1>{{store.product.name}}</h1>
+		<h2>{{store.product.price}}</h2>
+		<p>{{store.product.description}}</p>
+	</div>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.min.js"></script>
+	<script type="text/javascript" src="scripts/app.js"></script>
+</body>
+</html>
