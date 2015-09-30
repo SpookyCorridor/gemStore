@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>gemStore</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
 </head>
 <body ng-controller="StoreController as store" class="container"> <!-- set an alias --> 
 	<ul class="list-group">
@@ -34,8 +35,37 @@
 					<ul>
 						<li>{{product.appeal}}</li>
 						<li>{{product.color}}</li>
-					</ul>
-					
+					</ul>		
+				</div>
+				<div class="panel" ng-show="panel.isSet(3)">
+					<h4>reviews</h4>
+
+					<blockquote ng-repeat="review in product.reviews">
+					<p>	<b>Stars: {{review.stars}}</b></p>
+						<p>{{review.body}} </p>
+						<p><cite>by: {{review.author}}</cite></p>
+					</blockquote>
+
+					<form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate> <!-- on submit send in current product we're iterating through --> 
+					<!-- turn off built in browser validation with novalidate --> 
+						<blockquote>
+						<p>	<b>Stars: {{reviewCtrl.review.stars}}</b></p>
+						<p>{{reviewCtrl.review.body}} </p>
+						<p><cite>by: {{reviewCtrl.review.author}}</cite></p>
+					</blockquote>
+
+					<select ng-model="reviewCtrl.review.stars" required>
+						<option value="1">1 star</option>
+						<option value="2">2 star</option>
+						<option value="3">3 star</option>
+						<option value="4">4 star</option>
+						<option value="5">5 star</option>
+					</select>
+
+					<textarea ng-model="reviewCtrl.review.body" cols="10" rows="1" required></textarea>
+					<input type="email" ng-model="reviewCtrl.review.author" required>
+					<input type="submit" value="submit">
+					</form>
 				</div>
 			</section>
 		</li>

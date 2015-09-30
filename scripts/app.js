@@ -18,6 +18,16 @@
 
 	});
 
+	app.controller('ReviewController', function(){
+		this.review = {};
+
+		this.addReview = function(product) {
+			product.reviews.push(this.review); 
+			this.review = {}; // reset fields & preview upon submit 
+		};
+
+	});
+
 })(); 
 
 var gems = [
@@ -28,7 +38,14 @@ var gems = [
 		canPurchase: true, 
 		soldOut: false,
 		appeal: 'shiny',
-		color: 'tomato'
+		color: 'tomato',
+		reviews: [
+			{
+				stars: 5,
+				body: 'This is the best gem yet!',
+				author: 'joe@thomas.com'
+			},
+		]
 	},
 
 	{
@@ -38,6 +55,13 @@ var gems = [
 		canPurchase: false, 
 		soldOut: false,
 		appeal: 'cursed',
-		color: 'lavendar'
+		color: 'lavendar',
+		reviews: [
+			{
+				stars: 3,
+				body: 'This gem possessed my husband. :( not cool',
+				author: 'saynoto@gems.netscape'
+			},
+		]
 	}
 ];
