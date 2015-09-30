@@ -43,7 +43,7 @@
 					<blockquote ng-repeat="review in product.reviews">
 					<p>	<b>Stars: {{review.stars}}</b></p>
 						<p>{{review.body}} </p>
-						<p><cite>by: {{review.author}}</cite></p>
+						<p><cite>by: {{review.author}} on {{review.createdOn | date}}</cite></p>
 					</blockquote>
 
 					<form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate> <!-- on submit send in current product we're iterating through --> 
