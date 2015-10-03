@@ -1,9 +1,23 @@
 (function(){
-	var app = angular.module('gemStore', []); 
+	var app = angular.module('gemStore', ['store-products']);  //add products.js dependancy
 
 	app.controller('StoreController', function(){
 		this.products = gems; 
 	});
+
+	//calling an api instead with StoreController:
+
+	/*
+	app.controller('StoreController', [ '$http', function($http){
+		var store = this; 
+		store.products = [ ]; // initialize to empty array because the page will load
+													// faster than data returns from our get request 
+
+		$http.get('/products.json').success(function(data) {
+			store.products = data; 
+		}); 
+	}]); 	
+	*/ 
 
 	app.controller('PanelController', function(){
 		
@@ -20,50 +34,6 @@
 		};
 
 	});
-
-	app.directive('productTitle', function() {
-		return {
-			/*Use element directives for UI widgets and Attribute Directives 
-				for mixin behaviors like tooltips */
-			restrict: "E", //E for element 
-			templateUrl: "product-title.html"
-		};
-	});
-
-	app.directive("productSpecs", function() {
-    return { 
-    	restrict: "A",
-      templateUrl: "product-specs.html" 
-    };
-  }); 
-
-  app.directive("productReviews", function() {
-  	return {
-  		restrict: "E", 
-  		templateUrl: "product-reviews.html"
-  	};
-  });
-
-  app.directive("productPanels", function() {
-  	return {
-  		restrict: "E",
-  		templateUrl: "product-panels.html",
-  		controller: function() {
-
-  			this.tab = 1; 
-
-				this.selectTab = function(setTab) {
-					this.tab = setTab;
-				};
-
-				this.isSet = function(checkTab) {
-					return this.tab === checkTab; 
-				}; 
-
-  		},
-  		controllerAs: "panel"
-  	};
-  }); 
 
 })(); 
 
