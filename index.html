@@ -9,73 +9,10 @@
 <body ng-controller="StoreController as store" class="container"> <!-- set an alias --> 
 	<ul class="list-group">
 		<li class="list-group-item" ng-repeat="product in store.products | orderBy:'-price'"> <!--order the items by price (descending) -->
-			<h3 ng-hide="product.soldOut"> <!-- hide if expression true --> 
-				{{product.name}}
-					<em class="pull-right">{{product.price | currency}}</em>
-			</h3>
+			<product-title></product-title>
+			
 			<button ng-show="product.canPurchase">Add to Cart</button> <!-- only show button when expression is true --> 
-			<section ng-controller="PanelController as panel">
-				<ul class="nav nav-pills">
-					<li ng-class="{ active: panel.isSet(1)}">
-						<a href="" ng-click="panel.selectTab(1)">Description</a>
-					</li>
-					<li ng-class="{ active: panel.isSet(2)}">
-						<a href="" ng-click="panel.selectTab(2)">Specifications</a>
-					</li>
-					<li ng-class="{ active: panel.isSet(3)}">
-						<a href="" ng-click="panel.selectTab(3)">Reviews</a>
-					</li>
-				</ul>
-				<div class="panel" ng-show="panel.isSet(1)">
-					<h4>Description!</h4>
-					<p>{{product.description}}</p>
-				</div>
-				<div class="panel" ng-show="panel.isSet(2)">
-					<h4>Specifications</h4>
-					<ul>
-						<li>{{product.appeal}}</li>
-						<li>{{product.color}}</li>
-					</ul>		
-				</div>
-				<div class="panel" ng-show="panel.isSet(3)">
-					<h4>reviews</h4>
-
-					<blockquote ng-repeat="review in product.reviews">
-					<p>	<b>Stars: {{review.stars}}</b></p>
-						<p>{{review.body}} </p>
-						<p><cite>by: {{review.author}} on {{review.createdOn | date}}</cite></p>
-					</blockquote>
-
-					<form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate> <!-- on submit send in current product we're iterating through --> 
-					<!-- turn off built in browser validation with novalidate --> 
-
-					<blockquote>
-						<p>	<b>Stars: {{reviewCtrl.review.stars}}</b></p>
-						<p>{{reviewCtrl.review.body}} </p>
-						<p><cite>by: {{reviewCtrl.review.author}}</cite></p>
-					</blockquote>
-					
-					<div class="row">
-					<div class="col-md-6">
-					<fieldset class="form-group">
-						<select ng-model="reviewCtrl.review.stars" ng-options="stars for stars in [5,4,3,2,1]" title="stars" class="form-control" required>
-							<option value="">Rate The Product</option>
-						</select>
-					</fieldset>
-					
-					<fieldset class="form-group">
-						<textarea ng-model="reviewCtrl.review.body" class="form-control"cols="10" rows="1" placeholder="Write a short review..." title="Review" required></textarea>
-					</fieldset>
-
-					<fieldset class="form-group">
-						<input type="email" ng-model="reviewCtrl.review.author" required>
-						<input type="submit" class="btn btn-primary pull-right" value="submit">
-					</fieldset>
-					</div>
-					</div>
-					</form>
-				</div>
-			</section>
+			<product-panels> </product-panels>
 		</li>
 	</ul>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.min.js"></script>
